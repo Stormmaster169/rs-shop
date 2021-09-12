@@ -1,0 +1,39 @@
+<button
+  pButton
+  type="button"
+  class="p-button-outlined p-button-secondary"
+  label="Аккаунт"
+  icon="pi pi-sort-down"
+  iconPos="right"
+  (click)="op.toggle($event)"
+>
+  <i class="pi pi pi-sign-in mr-2"></i>
+</button>
+
+<p-overlayPanel #op>
+  <ng-template pTemplate>
+    <div class="overlay-panel flex flex-column justify-content-center align-items-center">
+      <i
+        class="pi pi-user"
+        style="justify-content: center; display: flex; align-items: center; font-size: 4rem"
+      ></i>
+      <p-button class="my-3" [label]="'Войти'"></p-button>
+      <div class="flex flex-column align-items-start">
+        <div class="flex justify-content-center align-items-center cursor-pointer mb-2">
+          <i
+            class="pi pi-star-o mr-2"
+            style="justify-content: center; display: flex; align-items: center"
+          ></i>
+          <span class="font-normal">Избранные товары</span>
+        </div>
+        <div class="flex justify-content-center align-items-center cursor-pointer">
+          <i
+            class="pi pi-list mr-2"
+            style="justify-content: center; display: flex; align-items: center"
+          ></i>
+          <span class="font-normal">Лист ожидания</span>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</p-overlayPanel>

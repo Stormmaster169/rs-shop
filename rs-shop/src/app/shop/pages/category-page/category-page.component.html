@@ -1,0 +1,89 @@
+<p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
+
+<div class="card">
+  <p-dataView
+    #dv
+    [value]="subCatItem"
+    [rows]="5"
+    filterBy="name"
+    [sortField]="sortField"
+    [sortOrder]="sortOrder"
+    layout="grid"
+  >
+    <ng-template pTemplate="header">
+      <div class="flex flex-column md:flex-row justify-content-between">
+        <div class="flex flex-column md:flex-row">
+          <p-dropdown
+            [options]="priceSortOptions"
+            [(ngModel)]="sortOrder"
+            placeholder="По цене"
+            (onChange)="onSortChange($event)"
+            styleClass="mb:col-2 p-mb-md-0 mr-2"
+          ></p-dropdown>
+          <p-dropdown
+            [options]="ratingSortOptions"
+            [(ngModel)]="sortOrder"
+            placeholder="По популярности"
+            (onChange)="onSortChange($event)"
+            styleClass="mb:col-2 p-mb-md-0"
+          ></p-dropdown>
+        </div>
+        <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+      </div>
+    </ng-template>
+    <ng-template let-product pTemplate="listItem">
+      <div class="col-12">
+        <div class="product-list-item">
+          <img [src]="product.imageUrls[0]" [alt]="product.name" />
+          <div class="product-list-detail">
+            <div class="product-name">{{ product.name }}</div>
+            <div class="product-description">{{ product.description }}</div>
+            <p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating>
+          </div>
+          <div class="product-list-action">
+            <span class="product-price">${{ product.price }}</span>
+            <p-button
+              icon="pi pi-shopping-cart"
+              label="Add to Cart"
+              [disabled]="product.availableAmount === 0"
+            ></p-button>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template let-product pTemplate="gridItem">
+      <div class="col-12 xl:col-4 md:col-6">
+        <div class="product-grid-item card">
+          <div class="product-grid-item-top">
+            <div [class]="'product-badge'" [colorByCount]="product.availableAmount">
+              <i class="pi pi-check-circle mr-1"></i>
+              наличие
+            </div>
+          </div>
+          <div class="product-grid-item-content">
+            <img [src]="product.imageUrls[0]" [alt]="product.name" style="max-height: 200px" />
+            <div class="product-name">{{ product.name }}</div>
+            <div class="flex product-description">{{ product.description }}</div>
+            <p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating>
+          </div>
+          <div class="product-grid-item-bottom">
+            <span class="product-price">${{ product.price }}</span>
+            <p-button
+              icon="pi pi-shopping-cart"
+              [disabled]="product.availableAmount === 0"
+            ></p-button>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </p-dataView>
+  <div *ngIf="loadMoreButton" class="flex justify-content-center">
+    <button
+      pButton
+      type="button"
+      class="p-button-outlined p-button-secondary"
+      label="Показать больше"
+      (click)="onLoadMore()"
+    ></button>
+  </div>
+</div>

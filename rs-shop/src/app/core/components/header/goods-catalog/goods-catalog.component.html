@@ -1,0 +1,51 @@
+<button
+  pButton
+  type="button"
+  class="p-button-outlined p-button-secondary"
+  label="Каталог товаров"
+  icon="pi pi-th-large"
+  (click)="op.toggle($event)"
+></button>
+
+<p-overlayPanel #op [showCloseIcon]="true" [style]="{ width: '450px' }">
+  <ng-template pTemplate>
+    <div class="overlay-panel">
+      <p-table
+        [value]="catalogs"
+        selectionMode="single"
+        [rows]="catalogs.length"
+        responsiveLayout="scroll"
+        [(selection)]="selectedCategory"
+      >
+        <ng-template pTemplate="body" let-rowData let-product>
+          <tr [pSelectableRow]="rowData">
+            <td>{{ product.name }}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+
+      <p-table
+        [value]="selectedCategory.subCategories"
+        selectionMode="single"
+        [rows]="selectedCategory.subCategories.length"
+        responsiveLayout="scroll"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th>{{ selectedCategory.name }}</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-product>
+          <tr [pSelectableRow]="rowData">
+            <td
+              [routerLink]="['/main', 'subCategory', selectedCategory.id, product.id]"
+              (click)="op.hide()"
+            >
+              {{ product.name }}
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </ng-template>
+</p-overlayPanel>
