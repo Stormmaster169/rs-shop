@@ -1,16 +1,21 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { ButtonModule } from 'primeng/button';
+import { CheckboxModule } from 'primeng/checkbox';
 import { DropdownModule } from "primeng/dropdown";
 import { InputTextModule } from "primeng/inputtext";
 import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { PasswordModule } from 'primeng/password';
 import { TableModule } from 'primeng/table';
+import { AuthService } from '../auth/services/auth.service';
 import { CatalogEffects } from '../redux/effects/catalog.effects';
+import { UserEffects } from '../redux/effects/user.effects';
 import { catalogReducer } from '../redux/reducers/catalog.reducers';
+import { userReducer } from '../redux/reducers/user.reducers';
 import { ShopService } from '../services/shop.service';
 import { AccountComponent } from './components/header/account/account.component';
 import { GoodsCatalogComponent } from './components/header/goods-catalog/goods-catalog.component';
@@ -36,23 +41,26 @@ import { MainCategoriesComponent } from './components/header/main-categories/mai
     TableModule,
     InputTextModule,
     CommonModule,
+    CheckboxModule,
     StoreModule.forFeature(
       'catalog', catalogReducer
     ),
-    // StoreModule.forFeature(
-    //   'goods', goodsReducer
-    // ),
-    EffectsModule.forFeature(
-      [CatalogEffects]
-      // GoodsEffects
+    StoreModule.forFeature(
+      'user', userReducer
     ),
-    RouterModule
+    EffectsModule.forFeature(
+      [CatalogEffects, UserEffects]
+    ),
+    RouterModule,
+    ReactiveFormsModule,
+    PasswordModule
   ],
   exports: [
     HeaderComponent
   ],
   providers: [
-    ShopService
+    ShopService,
+    AuthService
   ]
 })
 export class CoreModule { }

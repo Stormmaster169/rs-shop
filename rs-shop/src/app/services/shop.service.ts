@@ -31,7 +31,7 @@ export class ShopService {
     const params: HttpParams = new HttpParams()
       .append('text', this.searchQuery);
 
-    return this.http.get<IShopItem[]>(ServerLinks.SEARCH,{params});
+    return this.http.get<IShopItem[]>(ServerLinks.SEARCH, {params});
   }
 
   public getSingleGoodsById(id: string): Observable<IShopItem> {

@@ -9,7 +9,10 @@ import { DataViewModule } from 'primeng/dataview';
 import { DropdownModule } from 'primeng/dropdown';
 import { RatingModule } from 'primeng/rating';
 import { CatalogEffects } from '../redux/effects/catalog.effects';
+import { UserEffects } from '../redux/effects/user.effects';
 import { catalogReducer } from '../redux/reducers/catalog.reducers';
+import { userReducer } from '../redux/reducers/user.reducers';
+import { UserService } from '../services/user.service';
 import { GoodsComponentComponent } from './components/goods-component/goods-component.component';
 import { ColorByCountDirective } from './directives/color-by-count.directive';
 import { CategoryPageComponent } from './pages/category-page/category-page.component';
@@ -36,14 +39,16 @@ import { ShopRoutingModule } from './shop-routing.module';
     StoreModule.forFeature(
       'catalog', catalogReducer
     ),
-    // StoreModule.forFeature(
-    //   'goods', goodsReducer
-    // ),
+    StoreModule.forFeature(
+      'user', userReducer
+    ),
     EffectsModule.forFeature(
-      [CatalogEffects]
-      // GoodsEffects
+      [CatalogEffects, UserEffects]
     ),
     ShopRoutingModule
+  ],
+  providers: [
+    UserService
   ]
 })
 export class ShopModule { }

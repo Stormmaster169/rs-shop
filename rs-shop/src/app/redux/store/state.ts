@@ -1,8 +1,8 @@
 import { ICatalogState } from "./catalog.state";
-import { IGoodsState } from "./goods.state";
+import { IUserState } from "./user.state";
 
 
 export interface IAppState {
   catalog: ICatalogState,
-  goods: IGoodsState
+  user: IUserState
 }

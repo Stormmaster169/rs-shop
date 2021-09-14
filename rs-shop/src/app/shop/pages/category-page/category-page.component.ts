@@ -5,9 +5,12 @@ import { MenuItem, PrimeNGConfig, SelectItem } from 'primeng/api';
 import { Observable, Subscription } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { ICategory, IShopItem } from 'src/app/models/app-models.model';
+import { getUserInfo } from 'src/app/redux/actions/user.actions';
 import { catalogResultSelector } from 'src/app/redux/selectors/catalog.selector';
+import { userCartSelector } from 'src/app/redux/selectors/user.selector';
 import { IAppState } from 'src/app/redux/store/state';
 import { ShopService } from 'src/app/services/shop.service';
+import { UserService } from 'src/app/services/user.service';
 
 export interface BreadCrumbData {
   category: string,
@@ -22,6 +25,9 @@ export interface BreadCrumbData {
   styleUrls: ['./category-page.component.scss']
 })
 export class CategoryPageComponent implements OnInit, OnDestroy {
+  private userCart$: Observable<string[]>;
+
+  public userCart: string[];
 
   public catalog$: Observable<ICategory>;
 
@@ -55,10 +61,17 @@ export class CategoryPageComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private primengConfig: PrimeNGConfig,
     private store: Store<IAppState>,
-    private shopService: ShopService
-    ) { }
+    private shopService: ShopService,
+    private userService: UserService
+    ) {
+      this.userCart$ = this.store.select(userCartSelector);
+    }
 
   public ngOnInit(): void {
+    this.subscriptions.add(this.userCart$.subscribe((res) => {
+      this.userCart = res;
+    }))
+
     this.catalog$ = this.store.select(catalogResultSelector).pipe(
       take(1),
       map(catalogsArray => catalogsArray
@@ -141,5 +154,10 @@ export class CategoryPageComponent implements OnInit, OnDestroy {
 
   public onLoadMore() {
     this.shopService.getNextSubCategoryItems(this.shopService.countOfItems$.value + 10);
+  }
+
+  public onAddToCart(item: IShopItem) {
+    this.userService.addItemToCart(item).subscribe(res => res);
+    this.store.dispatch(getUserInfo());
   }
 }
