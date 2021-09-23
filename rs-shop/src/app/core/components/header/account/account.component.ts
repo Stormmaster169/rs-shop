@@ -27,6 +27,8 @@ export class AccountComponent implements OnInit {
 
   public isLogin: boolean;
 
+  public isWrongAuth: boolean;
+
   public userLogin: string | null;
 
   constructor(
@@ -55,7 +57,14 @@ export class AccountComponent implements OnInit {
       this.isLogin = res;
       if (this.isLogin) {
         this.store.dispatch(getUserInfo());
+        this.showOverlayModal = false;
+        this.showRegisterModal = false;
+        this.showLoginModal = false;
       }
+    })
+
+    this.authService.isWrongAuth$.subscribe((res) => {
+      this.isWrongAuth = res;
     })
   }
 
@@ -112,9 +121,6 @@ export class AccountComponent implements OnInit {
     const user: IUserLogin = {...this.loginForm.value};
     this.authService.login(user)
     this.loginForm.reset();
-    this.showOverlayModal = false;
-    this.showRegisterModal = false;
-    this.showLoginModal = false;
     document.body.classList.remove('scroll-block');
     this.userLogin = localStorage.getItem('userLogin');
   }

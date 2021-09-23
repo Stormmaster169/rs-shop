@@ -1,6 +1,12 @@
 <app-info></app-info>
-<div class="flex mt-3 justify-content-between">
-  <img src="../../../../assets/logo.svg" alt="logo" style="height: 39px" />
+<div class="flex flex-wrap justify-content-between">
+  <img
+    class="cursor-pointer mt-3"
+    src="../../../../assets/logo.svg"
+    alt="logo"
+    style="height: 39px"
+    [routerLink]="'main'"
+  />
   <app-goods-catalog></app-goods-catalog>
   <app-goods-search></app-goods-search>
   <app-account></app-account>
@@ -9,7 +15,8 @@
     pButton
     type="button"
     label="Корзина"
-    class="p-button-outlined p-button-secondary"
+    class="p-button-outlined p-button-secondary mt-3"
+    [routerLink]="['main', 'cart']"
   ></button>
 </div>
 <app-main-categories></app-main-categories>

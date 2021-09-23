@@ -1,3 +1,4 @@
+
 export interface ISubCategory {
   id: string;
   name: string;
@@ -21,6 +22,7 @@ export interface IShopItem {
   isFavorite: boolean;
   category?: string;
   subCategory?: string;
+  amountToOrder?: number;
 }
 
 export interface IUserLogin {
@@ -41,7 +43,15 @@ export interface ITokenResponse {
 
 export interface IOrderItem {
   id: string;
-  amount: string;
+  amount: number;
+  price?: number;
+  name?: string;
+  address?: string;
+  phone?: string;
+  timeToDeliver?: string;
+  comment?: string;
+  controlPanel?: boolean;
+  availableAmount?: number;
 }
 
 export interface IUserOrderRequest {
@@ -73,4 +83,11 @@ export interface IUserInfo {
   cart: Array<string>;
   favorites : Array<string>;
   orders : IUserOrder[]
+}
+
+export interface BreadCrumbData {
+  category: string,
+  subCategory: string,
+  catalog: string,
+  subCatalog: string
 }

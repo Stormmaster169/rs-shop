@@ -1,0 +1,43 @@
+:host ::ng-deep {
+  .product-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  .product-item-main {
+    display: flex;
+    justify-content: center;
+    height: 500px;
+    align-items: center;
+
+    .product-item-content-main {
+      display: flex;
+      height: 95%;
+      padding: 1rem 0;
+      align-items: center;
+    }
+  }
+
+  .product-descriptions {
+    align-self: flex-start;
+  }
+
+  .product-badge {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 2px;
+    padding: 0.25em 0.5rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.3px;
+  }
+
+  .product-price {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    align-self: flex-end;
+  }
+}

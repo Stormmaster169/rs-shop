@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { VisitorsService } from 'src/app/core/services/visitors.service';
 
 interface City {
-  name: string,
-  code: string
+  name: string
 }
 
 @Component({
@@ -11,17 +11,34 @@ interface City {
   styleUrls: ['./info.component.scss']
 })
 
-export class InfoComponent {
-  cities: City[];
+export class InfoComponent implements OnInit {
 
-  selectedCity: City;
+  private ipaddress: string = '';
 
-  constructor() {
-      this.cities = [
-          {name: 'New York', code: 'NY'},
-          {name: 'Rome', code: 'RM'},
-          {name: 'London', code: 'LDN'},
-          {name: 'Istanbul', code: 'IST'},
-      ];
+  public city: string = '';
+
+  public cities: City[];
+
+  public selectedCity: City;
+
+  constructor(private visitorsService: VisitorsService) { }
+
+  public ngOnInit() {
+    this.visitorsService.getIpAddress().subscribe((res) => {
+      this.ipaddress = res.ip!;
+      this.visitorsService.getGEOLocation(this.ipaddress).subscribe((res) => {
+
+        this.city = res.city;
+
+        this.cities = [
+          {name: '"Минск"'},
+          {name: '"Брест"'},
+          {name: '"Витебск"'},
+          {name: '"Гомель"'},
+          {name: '"Гродно"'},
+          {name: '"Могилев"'}
+        ];
+      });
+    });
   }
 }

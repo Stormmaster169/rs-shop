@@ -1,4 +1,4 @@
-<span class="p-float-label p-input-icon-left" style="width: 450px">
+<span class="p-float-label p-input-icon-left mt-3" style="width: 350px">
   <i class="pi pi-search"></i>
   <input
     #searchInput
@@ -12,7 +12,7 @@
   <label for="inputtext-left">Поиск товаров</label>
 </span>
 
-<p-overlayPanel #op [showCloseIcon]="true" [style]="{ width: '450px' }">
+<p-overlayPanel #op>
   <ng-template pTemplate>
     <p-table
       [value]="searchItems"
@@ -24,7 +24,7 @@
       <ng-template pTemplate="body" let-rowData let-product>
         <tr
           [pSelectableRow]="rowData"
-          [routerLink]="['/main', 'item', product.id]"
+          [routerLink]="['main', 'item', product.id]"
           (click)="op.hide()"
         >
           <td>{{ product.name }}</td>
@@ -32,11 +32,11 @@
             <img
               [src]="product.imageUrls[0]"
               [alt]="product.image"
-              style="height: 90px"
+              style="max-width: 100px; max-height: 100px"
               class="product-image"
             />
           </td>
-          <td style="width: 100px">{{ product.price + ' p.' }}</td>
+          <td style="width: 120px">{{ product.price | number: '0.2' }} p.</td>
         </tr>
       </ng-template>
     </p-table>

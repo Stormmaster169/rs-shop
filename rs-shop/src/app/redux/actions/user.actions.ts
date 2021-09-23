@@ -9,3 +9,7 @@ export const getUserInfoSuccessful = createAction(
   '[USER INFO EFFECT] SET FETCHED USER INFO',
   props<{ data: IUserInfo}>()
 );
+
+export const clearUserInfo = createAction(
+  '[USER INFO] CLEAR USER INFO',
+);

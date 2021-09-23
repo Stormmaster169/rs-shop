@@ -1,10 +1,23 @@
-<div class="flex pb-2 align-items-center justify-content-between border-bottom-1 border-gray-300">
+<div
+  class="
+    flex flex-wrap
+    pb-2
+    align-items-center
+    justify-content-between
+    border-bottom-1 border-gray-300
+  "
+>
   <div class="flex">
     <i
       class="pi pi-map-marker"
       style="justify-content: center; display: flex; align-items: center"
     ></i>
-    <p-dropdown [options]="cities" [(ngModel)]="selectedCity" optionLabel="name"></p-dropdown>
+    <p-dropdown
+      [options]="cities"
+      [(ngModel)]="selectedCity"
+      optionLabel="name"
+      [placeholder]="city | json"
+    ></p-dropdown>
   </div>
 
   <div class="flex">

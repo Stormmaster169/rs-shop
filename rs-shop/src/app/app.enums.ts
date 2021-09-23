@@ -6,7 +6,9 @@ export enum ServerLinks {
   USER_REGISTER = 'http://localhost:3004/users/register',
   USER_LOGIN = 'http://localhost:3004/users/login',
   USER_INFO = 'http://localhost:3004/users/userInfo',
-  USER_CART = 'http://localhost:3004/users/cart'
+  USER_CART = 'http://localhost:3004/users/cart',
+  USER_ORDER = 'http://localhost:3004/users/order',
+  USER_FAVORITES = 'http://localhost:3004/users/favorites'
 }
 
 export enum Colors {

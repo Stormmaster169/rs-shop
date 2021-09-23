@@ -1,45 +1,33 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { BehaviorSubject, Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { ServerLinks } from 'src/app/app.enums';
 import { ITokenResponse, IUserLogin, IUserRegister } from 'src/app/models/app-models.model';
-import { getUserInfo } from 'src/app/redux/actions/user.actions';
+import { clearUserInfo, getUserInfo } from 'src/app/redux/actions/user.actions';
 import { IAppState } from 'src/app/redux/store/state';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   public isLogin$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
+  public isWrongAuth$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
   constructor (
     private http: HttpClient,
     private store: Store<IAppState>,
     ) { }
 
-  private handleError(error: HttpErrorResponse) {
-    if (error.status === 0) {
-      console.error('An error occurred:', error.error);
-    } else {
-      console.error(
-        `Backend returned code ${error.status}, body was: `, error.error);
-    }
-    return throwError(
-      'Something bad happened; please try again later.');
-  }
-
   private addUser(user: IUserRegister): Observable<ITokenResponse> {
     return this.http.post<ITokenResponse>(ServerLinks.USER_REGISTER, user)
-      .pipe(
-        catchError(this.handleError)
-      );
   }
 
   private loginUser(user: IUserLogin): Observable<ITokenResponse> {
-    return this.http.post<ITokenResponse>(ServerLinks.USER_LOGIN, user)
-      .pipe(
-        catchError(this.handleError)
-      );
+    const httpOptions = {
+      reportProgress: true,
+    };
+
+    return this.http.post<ITokenResponse>(ServerLinks.USER_LOGIN, user, httpOptions)
   }
 
   get authToken(): string | null {
@@ -51,7 +39,7 @@ export class AuthService {
   }
 
   public register(user: IUserRegister): void {
-    this.addUser(user).subscribe((res) => {
+    this.addUser(user).subscribe(res => {
       this.setAuthToken(res);
       this.isLogin$.next(!!this.authToken);
       this.store.dispatch(getUserInfo());
@@ -60,17 +48,23 @@ export class AuthService {
   }
 
   public login(user: IUserLogin): void {
-    this.loginUser(user).subscribe((res) => {
-      this.setAuthToken(res);
-      this.isLogin$.next(!!this.authToken);
-      this.store.dispatch(getUserInfo());
-    })
+    this.loginUser(user).subscribe(res => {
+        this.isWrongAuth$.next(false);
+        this.setAuthToken(res);
+        this.isLogin$.next(!!this.authToken);
+        this.store.dispatch(getUserInfo());
+      },
+      error => {
+        this.isWrongAuth$.next(true)
+      }
+    )
     localStorage.setItem('userLogin', user.login);
   }
 
   public logout(): void {
     this.isLogin$.next(false);
     localStorage.clear();
+    this.store.dispatch(clearUserInfo());
   }
 
   public isAuth(): boolean {

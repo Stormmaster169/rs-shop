@@ -1,7 +1,7 @@
 <button
   pButton
   type="button"
-  class="p-button-outlined p-button-secondary"
+  class="p-button-outlined p-button-secondary mt-3"
   label="Аккаунт"
   icon="pi pi-sort-down"
   iconPos="right"
@@ -22,14 +22,22 @@
       </div>
       <span *ngIf="isLogin" class="block text-900 font-medium mb-2">{{ userLogin }}</span>
       <div class="flex flex-column align-items-start">
-        <div class="flex justify-content-center align-items-center cursor-pointer mb-2">
+        <div
+          class="flex justify-content-center align-items-center cursor-pointer mb-2"
+          [routerLink]="['main', 'favorites']"
+          (click)="op.hide()"
+        >
           <i
             class="pi pi-star-o mr-2"
             style="justify-content: center; display: flex; align-items: center"
           ></i>
           <span class="font-normal">Избранные товары</span>
         </div>
-        <div class="flex justify-content-center align-items-center cursor-pointer mb-2">
+        <div
+          class="flex justify-content-center align-items-center cursor-pointer mb-2"
+          [routerLink]="['main', 'orders']"
+          (click)="op.hide()"
+        >
           <i
             class="pi pi-list mr-2"
             style="justify-content: center; display: flex; align-items: center"
@@ -113,17 +121,8 @@
             </small>
           </div>
         </div>
-
-        <!-- <div class="flex align-items-center justify-content-between mb-6">
-          <div class="flex align-items-center">
-            <p-checkbox id="rememberme" [binary]="true" styleClass="mr-2"></p-checkbox>
-            <label for="rememberme">Remember me</label>
-          </div>
-          <a class="font-medium no-underline ml-2 text-blue-500 text-right cursor-pointer"
-            >Forgot your password?</a
-          >
-        </div> -->
       </div>
+      <span *ngIf="isWrongAuth" class="text-pink-600"> *Введен неверный логин или пароль. </span>
       <button
         type="submit"
         [disabled]="!loginForm.valid"

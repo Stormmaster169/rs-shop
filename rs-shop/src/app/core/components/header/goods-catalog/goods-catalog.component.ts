@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
-import { ICategory, ISubCategory } from 'src/app/models/app-models.model';
+import { ICategory } from 'src/app/models/app-models.model';
 import { getCategoriesItems } from 'src/app/redux/actions/catalog.actions';
 import { catalogResultSelector } from 'src/app/redux/selectors/catalog.selector';
 import { IAppState } from 'src/app/redux/store/state';
@@ -21,8 +21,6 @@ export class GoodsCatalogComponent implements OnInit {
 
   public selectedCategory: ICategory;
 
-  public selectedCategories: ISubCategory[];
-
   constructor(
     private store: Store<IAppState>,
     ) {
@@ -30,11 +28,14 @@ export class GoodsCatalogComponent implements OnInit {
     this.catalogs$ = this.store.select(catalogResultSelector);
   }
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     this.subscriptions.add(this.catalogs$.subscribe((res) => {
       this.catalogs = res
       this.selectedCategory = this.catalogs[0]
-      this.selectedCategories = this.catalogs[0].subCategories
     }));
+  }
+
+  public onCategoryHover(category: ICategory): void {
+    this.selectedCategory = category
   }
 }

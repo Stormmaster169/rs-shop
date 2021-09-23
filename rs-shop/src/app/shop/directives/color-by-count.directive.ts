@@ -11,10 +11,10 @@ export class ColorByCountDirective implements OnInit {
 
   private setColor(count: number): string {
     if (count > 19) {
-      return Colors.ORANGE;
+      return Colors.GREEN;
     }
     if (count > 6) {
-      return Colors.GREEN;
+      return Colors.ORANGE;
     }
 
     return Colors.RED;

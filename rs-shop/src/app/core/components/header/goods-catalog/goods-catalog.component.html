@@ -1,25 +1,24 @@
 <button
   pButton
   type="button"
-  class="p-button-outlined p-button-secondary"
+  class="p-button-outlined p-button-secondary mt-3"
   label="Каталог товаров"
   icon="pi pi-th-large"
   (click)="op.toggle($event)"
 ></button>
 
-<p-overlayPanel #op [showCloseIcon]="true" [style]="{ width: '450px' }">
+<p-overlayPanel #op>
   <ng-template pTemplate>
     <div class="overlay-panel">
       <p-table
         [value]="catalogs"
-        selectionMode="single"
         [rows]="catalogs.length"
         responsiveLayout="scroll"
         [(selection)]="selectedCategory"
       >
         <ng-template pTemplate="body" let-rowData let-product>
-          <tr [pSelectableRow]="rowData">
-            <td>{{ product.name }}</td>
+          <tr [pSelectableRow]="rowData" (mouseenter)="onCategoryHover(rowData)">
+            <td style="cursor: default">{{ product.name }}</td>
           </tr>
         </ng-template>
       </p-table>
@@ -38,7 +37,7 @@
         <ng-template pTemplate="body" let-rowData let-product>
           <tr [pSelectableRow]="rowData">
             <td
-              [routerLink]="['/main', 'subCategory', selectedCategory.id, product.id]"
+              [routerLink]="['main', 'subCategory', selectedCategory.id, product.id]"
               (click)="op.hide()"
             >
               {{ product.name }}

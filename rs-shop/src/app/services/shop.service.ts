@@ -46,6 +46,11 @@ export class ShopService {
     return this.http.get<IShopItem[]>(`${ServerLinks.CATEGORY}${categoryId}/${subCategoryId}`,{params});
   }
 
+  public getSubCategoryAllItemsByCategory (categoryId: string, subCategoryId: string): Observable<IShopItem[]> {
+
+    return this.http.get<IShopItem[]>(`${ServerLinks.CATEGORY}${categoryId}/${subCategoryId}`);
+  }
+
   public getNextSubCategoryItems(count: number) {
     this.countOfItems$.next(count);
   }

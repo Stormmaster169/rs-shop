@@ -17,12 +17,14 @@ import { UserEffects } from '../redux/effects/user.effects';
 import { catalogReducer } from '../redux/reducers/catalog.reducers';
 import { userReducer } from '../redux/reducers/user.reducers';
 import { ShopService } from '../services/shop.service';
+import { FooterComponent } from './components/footer/footer.component';
 import { AccountComponent } from './components/header/account/account.component';
 import { GoodsCatalogComponent } from './components/header/goods-catalog/goods-catalog.component';
 import { GoodsSearchComponent } from './components/header/goods-search/goods-search.component';
 import { HeaderComponent } from './components/header/header.component';
 import { InfoComponent } from './components/header/info/info.component';
 import { MainCategoriesComponent } from './components/header/main-categories/main-categories.component';
+import { VisitorsService } from './services/visitors.service';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import { MainCategoriesComponent } from './components/header/main-categories/mai
     GoodsSearchComponent,
     AccountComponent,
     MainCategoriesComponent,
-    HeaderComponent
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     FormsModule,
@@ -56,11 +59,13 @@ import { MainCategoriesComponent } from './components/header/main-categories/mai
     PasswordModule
   ],
   exports: [
-    HeaderComponent
+    HeaderComponent,
+    FooterComponent
   ],
   providers: [
     ShopService,
-    AuthService
+    AuthService,
+    VisitorsService
   ]
 })
 export class CoreModule { }
