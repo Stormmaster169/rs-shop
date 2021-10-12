@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { IShopItem } from 'src/app/models/app-models.model';
@@ -40,6 +40,52 @@ export class MainPageComponent implements OnInit, OnDestroy {
     }
   ];
 
+  public data = [
+    {
+      title: 'Гарантия качества',
+      description: 'Мы продаем только сертифицированный товар с гарантией сервисных центров, чек прилагается.',
+      imgUrl: '../../../../assets/adventage-1.jpg',
+      name: 'guarantees'
+    },
+    {
+      title: 'Честные цены',
+      description: 'Все цены, указанные на сайте, действительны и актуальны — данные обновляются автоматически.',
+      imgUrl: '../../../../assets/adventage-2.jpg',
+      name: 'prices'
+    },
+    {
+      title: 'Доставка по всей Беларуси',
+      description: 'Мы доставляем заказы в Минск, Брест, Витебск, Гомель, Гродно, Могилев и в любую другую точку Беларуси!',
+      imgUrl: '../../../../assets/adventage-3.jpg',
+      name: 'delivery'
+    },
+    {
+      title: 'Кредит «не выходя из дома»',
+      description: 'Вы можете выбрать кредит среди предложений ведущих банков, рассчитать и оформить его, не выходя из дома.',
+      imgUrl: '../../../../assets/adventage-4.jpg',
+      name: 'credit'
+    },
+    {
+      title: 'Надежный сервис',
+      description: 'Мы предлагаем услуги по сборке, установке, настройке, гарантийному и послегарантийному обслуживанию товаров.',
+      imgUrl: '../../../../assets/adventage-5.jpg',
+      name: 'service'
+    },
+    {
+      title: 'Выгодные покупки',
+      description: 'Наш онлайн-гипермаркет предлагает вам выгодные акции, скидки и собственную бонусную программу.',
+      imgUrl: '../../../../assets/adventage-6.jpg',
+      name: 'purchases'
+    },
+  ]
+
+  @ViewChild('cardGuarantees', { static: true }) cardGuarantees: TemplateRef<any>;
+  @ViewChild('cardPrices', { static: true }) cardPrices: TemplateRef<any>;
+  @ViewChild('cardDelivery', { static: true }) cardDelivery: TemplateRef<any>;
+  @ViewChild('cardCredit', { static: true }) cardCredit: TemplateRef<any>;
+  @ViewChild('cardService', { static: true }) cardService: TemplateRef<any>;
+  @ViewChild('cardPurchases', { static: true }) cardPurchases: TemplateRef<any>;
+
   constructor(
     private store: Store<IAppState>,
     private shopService: ShopService,
@@ -64,6 +110,25 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
   public ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
+  }
+
+  public getSelectedComponentTemplate(name: string) {
+    switch (name) {
+      case 'guarantees':
+        return this.cardGuarantees;
+      case 'prices':
+        return this.cardPrices;
+      case 'delivery':
+        return this.cardDelivery;
+      case 'credit':
+        return this.cardCredit;
+      case 'service':
+        return this.cardService;
+      case 'purchases':
+        return this.cardPurchases;
+      default:
+        return null;
+    }
   }
 
 }

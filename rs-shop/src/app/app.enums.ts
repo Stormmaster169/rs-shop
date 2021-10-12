@@ -16,3 +16,8 @@ export enum Colors {
   ORANGE = 'orange',
   RED = 'red'
 }
+
+export enum GoodsCount {
+  MIDDLE = 19,
+  LOW = 6
+}

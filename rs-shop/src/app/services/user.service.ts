@@ -42,7 +42,7 @@ export class UserService {
     return this.http.post(ServerLinks.USER_CART, {id: item.id}, httpOptions);
   }
 
-  public deleteItemFromCart(itemId : string) {
+  async deleteItemFromCart(itemId : string) {
     const httpOptions = {
       headers: new HttpHeaders({
         Accept: '*/*',
@@ -50,7 +50,8 @@ export class UserService {
       }),
       params: new HttpParams().append('id', itemId)
     };
-    return this.http.delete(ServerLinks.USER_CART, httpOptions);
+    const response = await this.http.delete(ServerLinks.USER_CART, httpOptions).toPromise();
+    return response;
   }
 
   public addItemToOrders(item: IUserOrderRequest) {

@@ -57,3 +57,43 @@
     </div>
   </ng-template>
 </p-carousel>
+
+<div class="advantages-container">
+  <h3>Наши преимущества</h3>
+
+  <div class="advantages-wrapper">
+    <div *ngFor="let d of data">
+      <ng-container
+        *ngTemplateOutlet="
+          getSelectedComponentTemplate(d.name);
+          context: { $implicit: { data: d } }
+        "
+      >
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+<ng-template #cardGuarantees let-obj>
+  <advantages-card [data]="obj.data"></advantages-card>
+</ng-template>
+
+<ng-template #cardPrices let-obj>
+  <advantages-card [data]="obj.data"></advantages-card>
+</ng-template>
+
+<ng-template #cardDelivery let-obj>
+  <advantages-card [data]="obj.data"></advantages-card>
+</ng-template>
+
+<ng-template #cardCredit let-obj>
+  <advantages-card [data]="obj.data"></advantages-card>
+</ng-template>
+
+<ng-template #cardService let-obj>
+  <advantages-card [data]="obj.data"></advantages-card>
+</ng-template>
+
+<ng-template #cardPurchases let-obj>
+  <advantages-card [data]="obj.data"></advantages-card>
+</ng-template>

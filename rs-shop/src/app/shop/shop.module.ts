@@ -23,7 +23,7 @@ import { catalogReducer } from '../redux/reducers/catalog.reducers';
 import { userReducer } from '../redux/reducers/user.reducers';
 import { ShopService } from '../services/shop.service';
 import { UserService } from '../services/user.service';
-import { GoodsComponentComponent } from './components/goods-component/goods-component.component';
+import { AdvantagesCardComponent } from './components/advantages-card/advantages-card.component';
 import { ColorByCountDirective } from './directives/color-by-count.directive';
 import { CartPageComponent } from './pages/cart-page/cart-page.component';
 import { CategoryPageComponent } from './pages/category-page/category-page.component';
@@ -36,7 +36,7 @@ import { ShopRoutingModule } from './shop-routing.module';
 @NgModule({
   declarations: [
     GoodsDetailsComponent,
-    GoodsComponentComponent,
+    AdvantagesCardComponent,
     MainPageComponent,
     CategoryPageComponent,
     ColorByCountDirective,

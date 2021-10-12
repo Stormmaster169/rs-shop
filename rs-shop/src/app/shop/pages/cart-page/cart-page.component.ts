@@ -98,8 +98,7 @@ export class CartPageComponent implements OnInit, OnDestroy {
   }
 
   public onDeleteFromCart(id: string): void {
-    this.subscriptions.add(this.userService.deleteItemFromCart(id).subscribe());
-    this.store.dispatch(getUserInfo());
+    this.userService.deleteItemFromCart(id).then(() => this.store.dispatch(getUserInfo()));
   }
 
   public priceInput(cartItems: IShopItem[]) {

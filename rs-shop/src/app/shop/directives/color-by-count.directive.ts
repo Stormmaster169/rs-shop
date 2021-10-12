@@ -1,5 +1,5 @@
 import { Directive, HostBinding, Input, OnInit } from '@angular/core';
-import { Colors } from '../../app.enums';
+import { Colors, GoodsCount } from '../../app.enums';
 
 @Directive({
   selector: '[colorByCount]'
@@ -10,10 +10,10 @@ export class ColorByCountDirective implements OnInit {
   @HostBinding('style.color') public color: string = 'transparent';
 
   private setColor(count: number): string {
-    if (count > 19) {
+    if (count > GoodsCount.MIDDLE) {
       return Colors.GREEN;
     }
-    if (count > 6) {
+    if (count > GoodsCount.LOW) {
       return Colors.ORANGE;
     }
 
