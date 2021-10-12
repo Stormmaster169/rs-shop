@@ -1,0 +1,44 @@
+<span class="p-float-label p-input-icon-left mt-3" style="width: 350px">
+  <i class="pi pi-search"></i>
+  <input
+    #searchInput
+    type="text"
+    id="inputtext-left"
+    style="width: 100%"
+    pInputText
+    [(ngModel)]="searchInputValue"
+    (input)="searchInputValue.length > 3 ? op.show($event) : op.hide()"
+  />
+  <label for="inputtext-left">Поиск товаров</label>
+</span>
+
+<p-overlayPanel #op>
+  <ng-template pTemplate>
+    <p-table
+      [value]="searchItems"
+      selectionMode="single"
+      [paginator]="true"
+      [rows]="3"
+      responsiveLayout="scroll"
+    >
+      <ng-template pTemplate="body" let-rowData let-product>
+        <tr
+          [pSelectableRow]="rowData"
+          [routerLink]="['main', 'item', product.id]"
+          (click)="op.hide()"
+        >
+          <td>{{ product.name }}</td>
+          <td>
+            <img
+              [src]="product.imageUrls[0]"
+              [alt]="product.image"
+              style="max-width: 100px; max-height: 100px"
+              class="product-image"
+            />
+          </td>
+          <td style="width: 120px">{{ product.price | number: '0.2' }} p.</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </ng-template>
+</p-overlayPanel>

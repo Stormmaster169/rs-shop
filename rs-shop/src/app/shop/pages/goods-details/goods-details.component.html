@@ -1,0 +1,67 @@
+<p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
+<div class="product-name py-3">{{ shopItem.name }}</div>
+<div class="flex flex-column xl:flex-row align-items-center">
+  <div class="w-12 xl:w-7 lg:w-10 md:w-10">
+    <p-carousel
+      [value]="shopItem.imageUrls"
+      styleClass="custom-carousel-main"
+      [numVisible]="1"
+      [numScroll]="1"
+      [circular]="true"
+      [showIndicators]="true"
+      [showNavigators]="true"
+    >
+      <ng-template let-product pTemplate="item">
+        <div class="product-item-main">
+          <div class="product-item-content-main">
+            <div class="flex justify-content-center relative">
+              <img [src]="product" [alt]="shopItem.name" style="max-width: 250px" />
+              <i
+                *ngIf="shopItem.rating === 5"
+                class="pi pi-thumbs-up absolute top-0 right-0"
+                pBadge
+                value="%"
+                severity="danger"
+              ></i>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </p-carousel>
+  </div>
+
+  <div class="product-descriptions">
+    <p-tabView>
+      <p-tabPanel header="Обзор">
+        {{ shopItem.description }}
+      </p-tabPanel>
+      <p-tabPanel header="Отзывы">
+        {{ shopItem.description }}
+      </p-tabPanel>
+      <p-tabPanel header="Вопрос-ответ">
+        {{ shopItem.description }}
+      </p-tabPanel>
+    </p-tabView>
+    <div class="flex flex-wrap px-3 justify-content-around">
+      <span class="product-price">{{ shopItem.price | number: '0.2' }} p.</span>
+      <div [class]="'product-badge'" [colorByCount]="shopItem.availableAmount">
+        <i class="pi pi-check-circle mr-1"></i>
+        наличие
+      </div>
+      <p-button
+        *ngIf="isLogin"
+        icon="pi pi-shopping-cart"
+        label="В корзину"
+        [disabled]="shopItem.availableAmount === 0 || userCart.includes(shopItem.id)"
+        (click)="onAddToCart(shopItem)"
+      ></p-button>
+      <p-button
+        *ngIf="isLogin"
+        icon="pi pi-star-o"
+        label="В избранное"
+        [disabled]="userFavorites.includes(shopItem.id)"
+        (click)="onAddToFavorites(shopItem)"
+      ></p-button>
+    </div>
+  </div>
+</div>

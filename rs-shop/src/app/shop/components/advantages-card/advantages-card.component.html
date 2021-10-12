@@ -1,0 +1,17 @@
+<ng-container *ngIf="data">
+  <div class="card-container">
+    <img
+      [src]="data.imgUrl"
+      [alt]="data.name"
+      class="h-full mr-3"
+    />
+    <div class="card-content">
+      <div class="card-title">
+        <h4 class="card-title">{{ data.title }}</h4>
+      </div>
+      <div>
+        <p class="card-description">{{ data.description }}</p>
+      </div>
+    </div>
+  </div>
+</ng-container>
